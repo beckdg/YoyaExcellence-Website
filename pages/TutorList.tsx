@@ -190,7 +190,7 @@ const TutorList: React.FC = () => {
                 onClick={() => {
                   setSubjectFilter("");
                   setRatingFilter(0);
-                  setPriceRange([0, 150]);
+                  setPriceRange([0, 5000]);
                 }}
                 className="mt-4 text-primary-600 hover:underline"
               >
@@ -223,6 +223,7 @@ const TutorList: React.FC = () => {
                           </p>
                         </div>
                       </div>
+                      {/* monthly rate and star rating  */}
                       <div className="flex flex-col items-end">
                         <span className="font-bold text-mid text-gray-900 dark:text-white flex items-center">
                           Br {tutor.monthlyRate}
@@ -244,17 +245,35 @@ const TutorList: React.FC = () => {
                       </div>
                     </div>
 
+                    {/* Bio of the tutor */}
                     <div className="mt-4">
                       <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                         {tutor.bio}
                       </p>
                     </div>
 
+                    {/* List of Educational Level Catagories */}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {tutor.educationalCatagory.slice(0, 3).map((sub) => (
+                        <span
+                          key={sub}
+                          className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm font-medium"
+                        >
+                          {sub}
+                        </span>
+                      ))}
+                      {tutor.educationalCatagory.length > 3 && (
+                        <span className="text-xs text-gray-500 self-center">
+                          +{tutor.subjects.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                    {/* List of Subjects */}
                     <div className="mt-4 flex flex-wrap gap-2">
                       {tutor.subjects.slice(0, 3).map((sub) => (
                         <span
                           key={sub}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-gray-900 dark:text-primary-200"
+                          className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-gray-900 dark:text-primary-200"
                         >
                           {sub}
                         </span>

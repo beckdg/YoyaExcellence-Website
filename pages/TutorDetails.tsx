@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   MapPin,
   Star,
-  DollarSign,
   Award,
   Clock,
   CheckCircle,
@@ -184,8 +183,7 @@ const TutorDetails: React.FC = () => {
                       Monthly Rate
                     </span>
                     <span className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
-                      <DollarSign className="w-6 h-6" />
-                      {tutor.monthlyRate}
+                      Br. {tutor.monthlyRate}
                     </span>
                   </div>
 

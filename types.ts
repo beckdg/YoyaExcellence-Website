@@ -18,6 +18,7 @@ export interface Tutor {
   bio: string;
   experience: string;
   isVerified: boolean;
+  educationalCatagory: EducationalCatagory[];
 }
 
 export interface TutorApplication {
@@ -42,3 +43,10 @@ export interface FilterState {
   minRating: number;
   location: string;
 }
+
+export type EducationalCatagory =
+  | "KG"
+  | "Grade 1-4"
+  | "Grade 5-8"
+  | "Grade 9-12"
+  | "College";
