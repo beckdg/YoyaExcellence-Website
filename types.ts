@@ -13,7 +13,7 @@ export interface Tutor {
   subjects: string[];
   rating: number;
   reviewCount: number;
-  hourlyRate: number;
+  monthlyRate: number;
   location: string;
   bio: string;
   experience: string;
@@ -30,7 +30,7 @@ export interface TutorApplication {
   subjects: string; // comma separated for form simplicity
   experience: string;
   bio: string;
-  hourlyRate: number;
+  monthlyRate: number;
   status: "pending" | "approved" | "rejected";
   submittedAt: string;
 }

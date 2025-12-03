@@ -181,11 +181,11 @@ const TutorDetails: React.FC = () => {
                 <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 sticky top-24">
                   <div className="flex justify-between items-end mb-6">
                     <span className="text-gray-500 dark:text-gray-400">
-                      Hourly Rate
+                      Monthly Rate
                     </span>
                     <span className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
                       <DollarSign className="w-6 h-6" />
-                      {tutor.hourlyRate}
+                      {tutor.monthlyRate}
                     </span>
                   </div>
 

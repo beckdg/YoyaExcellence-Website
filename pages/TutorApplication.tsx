@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
-import { Upload, CheckCircle, AlertCircle } from 'lucide-react';
-import { mockService } from '../services/mockService';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Upload, CheckCircle, AlertCircle } from "lucide-react";
+import { mockService } from "../services/mockService";
+import { useNavigate } from "react-router-dom";
 
 const TutorApplication: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: '',
-    age: '',
-    phone: '',
-    location: '',
-    subjects: '',
-    experience: '',
-    bio: '',
-    hourlyRate: '',
+    fullName: "",
+    age: "",
+    phone: "",
+    location: "",
+    subjects: "",
+    experience: "",
+    bio: "",
+    monthlyRate: "",
   });
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -32,10 +36,10 @@ const TutorApplication: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    
+
     // Simulate API payload construction
     const payload = {
-      userId: 'current_user_id', // Mocked user ID
+      userId: "current_user_id", // Mocked user ID
       fullName: formData.fullName,
       age: Number(formData.age),
       phone: formData.phone,
@@ -43,11 +47,11 @@ const TutorApplication: React.FC = () => {
       subjects: formData.subjects,
       experience: formData.experience,
       bio: formData.bio,
-      hourlyRate: Number(formData.hourlyRate),
+      monthlyRate: Number(formData.monthlyRate),
     };
 
     await mockService.submitApplication(payload);
-    
+
     setSubmitting(false);
     setSubmitted(true);
   };
@@ -59,12 +63,16 @@ const TutorApplication: React.FC = () => {
           <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
             <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Application Received</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Application Received
+          </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Thank you for applying to be a tutor! Our team will review your details and documents. You will be notified via email within 48 hours.
+            Thank you for applying to be a tutor! Our team will review your
+            details and documents. You will be notified via email within 48
+            hours.
           </p>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="w-full inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
           >
             Return Home
@@ -82,16 +90,18 @@ const TutorApplication: React.FC = () => {
             Apply to Teach
           </h1>
           <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
-            Share your knowledge and earn money. Fill out the form below to get started.
+            Share your knowledge and earn money. Fill out the form below to get
+            started.
           </p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="fullName"
@@ -104,31 +114,37 @@ const TutorApplication: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Age</label>
-                    <input
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Age
+                  </label>
+                  <input
                     type="number"
                     name="age"
                     required
                     value={formData.age}
                     onChange={handleChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
-                    />
+                  />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Hourly Rate ($)</label>
-                    <input
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Hourly Rate ($)
+                  </label>
+                  <input
                     type="number"
-                    name="hourlyRate"
+                    name="monthlyRate"
                     required
-                    value={formData.hourlyRate}
+                    value={formData.monthlyRate}
                     onChange={handleChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
-                    />
+                  />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Phone Number
+                </label>
                 <input
                   type="tel"
                   name="phone"
@@ -140,7 +156,9 @@ const TutorApplication: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location (City, State)</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Location (City, State)
+                </label>
                 <input
                   type="text"
                   name="location"
@@ -153,7 +171,9 @@ const TutorApplication: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Subjects Taught</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Subjects Taught
+              </label>
               <input
                 type="text"
                 name="subjects"
@@ -166,7 +186,9 @@ const TutorApplication: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Experience</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Experience
+              </label>
               <textarea
                 name="experience"
                 rows={2}
@@ -179,7 +201,9 @@ const TutorApplication: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Bio</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Bio
+              </label>
               <textarea
                 name="bio"
                 rows={4}
@@ -192,27 +216,40 @@ const TutorApplication: React.FC = () => {
             </div>
 
             <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Documents</h3>
-                <div className="flex flex-col space-y-4">
-                    <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 flex justify-center items-center hover:border-primary-500 transition-colors bg-gray-50 dark:bg-gray-700/50">
-                        <div className="text-center">
-                             <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                             <div className="flex text-sm text-gray-600 dark:text-gray-400">
-                                <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-primary-600 hover:text-primary-500">
-                                    <span>Upload Certificates / Resume</span>
-                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFileChange} />
-                                </label>
-                             </div>
-                             <p className="text-xs text-gray-500 dark:text-gray-500">PDF, JPG up to 10MB</p>
-                        </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Documents
+              </h3>
+              <div className="flex flex-col space-y-4">
+                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 flex justify-center items-center hover:border-primary-500 transition-colors bg-gray-50 dark:bg-gray-700/50">
+                  <div className="text-center">
+                    <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                    <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                      <label
+                        htmlFor="file-upload"
+                        className="relative cursor-pointer rounded-md font-medium text-primary-600 hover:text-primary-500"
+                      >
+                        <span>Upload Certificates / Resume</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          className="sr-only"
+                          onChange={handleFileChange}
+                        />
+                      </label>
                     </div>
-                    {file && (
-                        <div className="flex items-center text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-2 rounded">
-                            <CheckCircle size={16} className="mr-2" />
-                            {file.name}
-                        </div>
-                    )}
+                    <p className="text-xs text-gray-500 dark:text-gray-500">
+                      PDF, JPG up to 10MB
+                    </p>
+                  </div>
                 </div>
+                {file && (
+                  <div className="flex items-center text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-2 rounded">
+                    <CheckCircle size={16} className="mr-2" />
+                    {file.name}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="flex justify-end pt-4">
@@ -221,7 +258,7 @@ const TutorApplication: React.FC = () => {
                 disabled={submitting}
                 className="w-full sm:w-auto flex justify-center py-3 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 transition-colors"
               >
-                {submitting ? 'Submitting...' : 'Submit Application'}
+                {submitting ? "Submitting..." : "Submit Application"}
               </button>
             </div>
           </form>

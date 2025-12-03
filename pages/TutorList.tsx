@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Filter, MapPin, Star, DollarSign } from "lucide-react";
+import { GiReceiveMoney } from "react-icons/gi";
 import { Tutor } from "../types";
 import { mockService } from "../services/mockService";
 import { SUBJECTS_LIST } from "../constants";
@@ -47,7 +48,7 @@ const TutorList: React.FC = () => {
       tutor.name.toLowerCase().includes(subjectFilter.toLowerCase());
 
     const matchesPrice =
-      tutor.hourlyRate >= priceRange[0] && tutor.hourlyRate <= priceRange[1];
+      tutor.monthlyRate >= priceRange[0] && tutor.monthlyRate <= priceRange[1];
     const matchesRating = tutor.rating >= ratingFilter;
 
     return matchesSubject && matchesPrice && matchesRating;
@@ -85,7 +86,7 @@ const TutorList: React.FC = () => {
               {/* Price Range */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Price: ${priceRange[0]} - ${priceRange[1]}/hr
+                  Price: ${priceRange[0]} - ${priceRange[1]}/month
                 </label>
                 <input
                   type="range"
@@ -206,12 +207,11 @@ const TutorList: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex flex-col items-end">
-                        <span className="font-bold text-lg text-gray-900 dark:text-white flex items-center">
-                          <DollarSign size={16} />
-                          {tutor.hourlyRate}
-                          <span className="text-xs font-normal text-gray-500 ml-1">
-                            /hr
-                          </span>
+                        <span className="font-bold text-mid text-gray-900 dark:text-white flex items-center">
+                          Br {tutor.monthlyRate}
+                        </span>
+                        <span className="text-xs font-normal text-gray-500 ml-1">
+                          /month
                         </span>
                         <div className="flex items-center mt-1 text-yellow-500 text-sm font-medium">
                           <Star
