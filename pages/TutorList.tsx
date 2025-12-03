@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Filter, MapPin, Star, DollarSign } from "lucide-react";
-import { GiReceiveMoney } from "react-icons/gi";
 import { Tutor } from "../types";
 import { mockService } from "../services/mockService";
 import { SUBJECTS_LIST } from "../constants";
+import { Direction, Range } from "react-range";
 
 const TutorList: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const TutorList: React.FC = () => {
 
   // Filters state
   const [subjectFilter, setSubjectFilter] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [ratingFilter, setRatingFilter] = useState(0);
 
   useEffect(() => {
@@ -83,23 +83,41 @@ const TutorList: React.FC = () => {
                 />
               </div>
 
-              {/* Price Range */}
-              <div>
+              {/* The filter Range */}
+              <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Price: ${priceRange[0]} - ${priceRange[1]}/month
+                  {" "}
+                  Price: Br {priceRange[0]} - Br {priceRange[1]}/month{" "}
                 </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="150"
-                  value={priceRange[1]}
-                  onChange={(e) =>
-                    setPriceRange([priceRange[0], parseInt(e.target.value)])
-                  }
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                <Range
+                  step={50}
+                  min={0}
+                  max={5000}
+                  values={priceRange}
+                  onChange={(values) => setPriceRange(values)}
+                  renderTrack={({ props, children }) => (
+                    <div
+                      {...props}
+                      className="w-full h-2 bg-gray-200 rounded-md dark:bg-gray-700"
+                    >
+                      {children}
+                    </div>
+                  )}
+                  renderThumb={({ props }) => (
+                    <div
+                      {...props}
+                      className="h-4 w-4 bg-primary-600 rounded-full cursor-pointer"
+                    />
+                  )}
+                  label={""}
+                  labelledBy={""}
+                  direction={Direction.Right}
+                  allowOverlap={false}
+                  draggableTrack={false}
+                  disabled={false}
+                  rtl={false}
                 />
               </div>
-
               {/* Rating */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -116,7 +134,6 @@ const TutorList: React.FC = () => {
                   <option value="4.5">4.5+ Stars</option>
                 </select>
               </div>
-
               {/* Popular Subjects Pills */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
