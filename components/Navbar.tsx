@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
 
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-xl text-gray-800 dark:text-white tracking-tight">
-                  YOYA
+                  YOYYA
                 </span>
                 <span className="text-sm font-bold text-gray-100 dark:text-white -mt-1">
                   Excellence

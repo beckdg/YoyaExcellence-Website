@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Filter, MapPin, Star, DollarSign } from "lucide-react";
+import { Filter, MapPin, Star } from "lucide-react";
 import { Tutor } from "../types";
 import { mockService } from "../services/mockService";
 import { SUBJECTS_LIST } from "../constants";
@@ -18,6 +18,18 @@ const TutorList: React.FC = () => {
   const [subjectFilter, setSubjectFilter] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [ratingFilter, setRatingFilter] = useState(0);
+  const [educationalCatagoryFilter, setEducationalCatagoryFilter] = useState<
+    string[]
+  >([]);
+
+  // education options
+  const educationOptions = [
+    "KG",
+    "Grade 1-4",
+    "Grade 5-8",
+    "Grade 9-12",
+    "College",
+  ];
 
   useEffect(() => {
     // Parse query params for initial search
@@ -51,7 +63,13 @@ const TutorList: React.FC = () => {
       tutor.monthlyRate >= priceRange[0] && tutor.monthlyRate <= priceRange[1];
     const matchesRating = tutor.rating >= ratingFilter;
 
-    return matchesSubject && matchesPrice && matchesRating;
+    const matchesEducation =
+      educationalCatagoryFilter.length === 0 ||
+      educationalCatagoryFilter.every((level) =>
+        tutor.educationalCatagory.includes(level)
+      );
+
+    return matchesSubject && matchesPrice && matchesRating && matchesEducation;
   });
 
   return (
@@ -134,6 +152,44 @@ const TutorList: React.FC = () => {
                   <option value="4.5">4.5+ Stars</option>
                 </select>
               </div>
+              {/* Educational level catagory filter pills */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Education Level
+                </h3>
+
+                <div className="flex flex-wrap gap-2">
+                  {educationOptions.map((level) => {
+                    const isSelected =
+                      educationalCatagoryFilter.includes(level);
+
+                    return (
+                      <button
+                        key={level}
+                        onClick={() => {
+                          setEducationalCatagoryFilter(
+                            (prev) =>
+                              prev.includes(level)
+                                ? prev.filter((item) => item !== level) // remove
+                                : [...prev, level] // add
+                          );
+                        }}
+                        className={`
+            px-2 py-1 rounded-full text-sm border transition
+            ${
+              isSelected
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+            }
+          `}
+                      >
+                        {level}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Popular Subjects Pills */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

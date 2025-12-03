@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
-              Master Any Subject from the{" "}
+              Hire Any Tutor from the{" "}
               <span className="text-primary-600">Comfort of Home</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-10">
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
                 <input
                   type="text"
                   className="block w-full pl-10 pr-3 py-4 text-base rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="What do you want to learn? (e.g. Math, Piano)"
+                  placeholder="What do you want to learn? (e.g. Math, Computer)"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
