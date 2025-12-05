@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { mockService } from '../services/mockService';
-import { TutorApplication } from '../types';
-import { Check, X, Eye, FileText } from 'lucide-react';
+import { mockService } from '../../services/mockService';
+import { TutorApplication } from '../../types';
+import { Check, X, Eye, Users } from 'lucide-react';
 
-const AdminDashboard: React.FC = () => {
+const AdminApplications: React.FC = () => {
   const [applications, setApplications] = useState<TutorApplication[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,15 +23,16 @@ const AdminDashboard: React.FC = () => {
     ));
   };
 
-  if (loading) return <div className="p-8 text-center dark:text-white">Loading Dashboard...</div>;
+  if (loading) return <div className="p-8 text-center dark:text-white">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Admin Dashboard - Tutor Applications</h1>
+    <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+            <Users className="mr-3" /> Tutor Applications
+        </h1>
 
         <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-            {/* Mobile View (Cards) - Visible on small screens, hidden on md+ */}
+            {/* Mobile View */}
             <div className="md:hidden">
                  {applications.map(app => (
                      <div key={app.id} className="p-4 border-b border-gray-200 dark:border-gray-700">
@@ -62,7 +63,7 @@ const AdminDashboard: React.FC = () => {
                  ))}
             </div>
 
-            {/* Desktop View (Table) */}
+            {/* Desktop View */}
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 hidden md:table">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
@@ -129,9 +130,8 @@ const AdminDashboard: React.FC = () => {
               </tbody>
             </table>
         </div>
-      </div>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default AdminApplications;

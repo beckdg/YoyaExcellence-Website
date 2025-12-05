@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Upload, CheckCircle, Send } from "lucide-react";
-import { mockService } from "../services/mockService";
+import { mockService } from "@/services/mockService";
 import { useNavigate } from "react-router-dom";
 
 const TutorApplication: React.FC = () => {

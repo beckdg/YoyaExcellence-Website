@@ -51,3 +51,33 @@ export type EducationalCetagory =
   | "Grade 5-8"
   | "Grade 9-12"
   | "College";
+
+export interface TutorStats {
+  totalEarnings: number;
+  activeStudents: number;
+  hoursTaught: number;
+  rating: number;
+}
+export interface Review {
+  id: string;
+  studentName: string;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
+export interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  date: string;
+  read: boolean;
+  type: "info" | "success" | "warning" | "error";
+}
+export interface Announcement {
+  id: string;
+  subject: string;
+  message: string;
+  targetAudience: "all" | "tutors" | "students";
+  sentAt: string;
+}
