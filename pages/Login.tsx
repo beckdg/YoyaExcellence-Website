@@ -74,6 +74,37 @@ const Login: React.FC = () => {
                 )}
               </button>
             </div>
+            {/* Forgot Password */}
+            <div className="flex justify-end my-4">
+              <Link
+                to="/forgot-password"
+                className="text-sm font-semibold text-primary-600 hover:text-primary-500"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          </div>
+
+          {/* Terms & Conditions */}
+          <div className="flex items-start gap-2 mb-3 -mt-2">
+            <input
+              type="checkbox"
+              id="terms"
+              required
+              className="h-4 w-4 text-primary-600 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="terms"
+              className="text-sm text-gray-600 dark:text-gray-300 leading-tight"
+            >
+              I agree to the{" "}
+              <Link
+                to="/terms"
+                className="text-primary-600 hover:text-primary-500 font-medium"
+              >
+                Terms & Conditions
+              </Link>
+            </label>
           </div>
 
           <div>

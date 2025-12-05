@@ -29,6 +29,7 @@ import EditProfile from "./pages/tutor/EditProfile";
 // Admin Pages
 import AdminApplications from "./pages/admin/Applications";
 import AdminAnnouncements from "./pages/admin/Announcements";
+import ForgotPassword from "./pages/ResetPassword";
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           {/* Auth Routes (No Layout) */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Public / Student Routes (Main Layout) */}
           <Route element={<MainLayout />}>
