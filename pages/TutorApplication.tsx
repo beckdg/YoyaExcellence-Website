@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Upload, CheckCircle, AlertCircle } from "lucide-react";
+import { Upload, CheckCircle } from "lucide-react";
 import { mockService } from "../services/mockService";
 import { useNavigate } from "react-router-dom";
 
@@ -7,14 +7,16 @@ const TutorApplication: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
-    age: "",
+    dateOfBirth: "",
     phone: "",
     location: "",
     subjects: "",
+    educationalCategory: [] as string[],
     experience: "",
     bio: "",
     monthlyRate: "",
   });
+
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -27,6 +29,20 @@ const TutorApplication: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleMultiSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setFormData((prev) => {
+      const alreadySelected = prev.educationalCategory.includes(value);
+
+      return {
+        ...prev,
+        educationalCategory: alreadySelected
+          ? prev.educationalCategory.filter((item) => item !== value)
+          : [...prev.educationalCategory, value],
+      };
+    });
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
@@ -37,14 +53,14 @@ const TutorApplication: React.FC = () => {
     e.preventDefault();
     setSubmitting(true);
 
-    // Simulate API payload construction
     const payload = {
-      userId: "current_user_id", // Mocked user ID
+      userId: "current_user_id",
       fullName: formData.fullName,
-      age: Number(formData.age),
-      phone: formData.phone,
+      dateOfBirth: formData.dateOfBirth,
+      phone: "+251" + formData.phone,
       location: formData.location,
       subjects: formData.subjects,
+      educationalCategory: formData.educationalCategory,
       experience: formData.experience,
       bio: formData.bio,
       monthlyRate: Number(formData.monthlyRate),
@@ -67,13 +83,11 @@ const TutorApplication: React.FC = () => {
             Application Received
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Thank you for applying to be a tutor! Our team will review your
-            details and documents. You will be notified via email within 48
-            hours.
+            Thank you for applying! We’ll review your details and notify you.
           </p>
           <button
             onClick={() => navigate("/")}
-            className="w-full inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+            className="w-full inline-flex justify-center px-4 py-2 rounded-md text-white bg-primary-600 hover:bg-primary-700"
           >
             Return Home
           </button>
@@ -90,14 +104,14 @@ const TutorApplication: React.FC = () => {
             Apply to Teach
           </h1>
           <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
-            Share your knowledge and earn money. Fill out the form below to get
-            started.
+            Share your knowledge and earn money. Fill out the form below.
           </p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Full Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Full Name
@@ -106,70 +120,112 @@ const TutorApplication: React.FC = () => {
                   type="text"
                   name="fullName"
                   required
+                  placeholder="As it appears on your Legal Doc."
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
+                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Age
-                  </label>
-                  <input
-                    type="number"
-                    name="age"
-                    required
-                    value={formData.age}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Hourly Rate ($)
-                  </label>
-                  <input
-                    type="number"
-                    name="monthlyRate"
-                    required
-                    value={formData.monthlyRate}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
-                  />
-                </div>
+              {/* Date of Birth */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  required
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                />
               </div>
 
-              <div>
+              {/* Phone Number + Code */}
+              <div className="col-span-2 md:col-span-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Phone Number
                 </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
-                />
+
+                <div className="flex mt-1">
+                  <span className="px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-l-md border">
+                    +251
+                  </span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="9XXXXXXXX"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="block w-full p-3 rounded-r-md border dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
               </div>
 
+              {/* Location */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Location (City, State)
+                  Location (City)
                 </label>
                 <input
                   type="text"
                   name="location"
+                  placeholder="City, State"
                   required
                   value={formData.location}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
+                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+
+              {/* Monthly Rate */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Monthly Rate (ETB)
+                </label>
+                <input
+                  type="number"
+                  name="monthlyRate"
+                  required
+                  value={formData.monthlyRate}
+                  onChange={handleChange}
+                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
                 />
               </div>
             </div>
 
+            {/* Educational Category (Multi-select) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Educational Category (Select one or more)
+              </label>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {["KG", "Grade 1-4", "Grade 5-8", "Grade 9-12", "College"].map(
+                  (level) => (
+                    <label
+                      key={level}
+                      className="flex items-center space-x-3 p-2 border rounded-md cursor-pointer dark:border-gray-600"
+                    >
+                      <input
+                        type="checkbox"
+                        value={level}
+                        checked={formData.educationalCategory.includes(level)}
+                        onChange={handleMultiSelect}
+                        className="h-4 w-4 rounded-full border-gray-400 text-primary-600 focus:ring-primary-500"
+                      />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {level}
+                      </span>
+                    </label>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Subjects */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Subjects Taught
@@ -177,14 +233,15 @@ const TutorApplication: React.FC = () => {
               <input
                 type="text"
                 name="subjects"
-                placeholder="e.g. Math, Physics, Piano (Comma separated)"
                 required
+                placeholder="e.g. Math, Physics..."
                 value={formData.subjects}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
+                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
               />
             </div>
 
+            {/* Experience */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Experience
@@ -192,14 +249,14 @@ const TutorApplication: React.FC = () => {
               <textarea
                 name="experience"
                 rows={2}
-                placeholder="Briefly describe your teaching experience..."
                 required
                 value={formData.experience}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
+                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
               />
             </div>
 
+            {/* Bio */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Bio
@@ -207,56 +264,48 @@ const TutorApplication: React.FC = () => {
               <textarea
                 name="bio"
                 rows={4}
-                placeholder="Tell students about yourself and your teaching style..."
                 required
                 value={formData.bio}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm p-3 border"
+                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
               />
             </div>
 
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+            {/* File Upload */}
+            <div className="border-t pt-6">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Documents
               </h3>
-              <div className="flex flex-col space-y-4">
-                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 flex justify-center items-center hover:border-primary-500 transition-colors bg-gray-50 dark:bg-gray-700/50">
-                  <div className="text-center">
-                    <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                    <div className="flex text-sm text-gray-600 dark:text-gray-400">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md font-medium text-primary-600 hover:text-primary-500"
-                      >
-                        <span>Upload Certificates / Resume</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                          onChange={handleFileChange}
-                        />
-                      </label>
-                    </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">
-                      PDF, JPG up to 10MB
-                    </p>
-                  </div>
-                </div>
-                {file && (
-                  <div className="flex items-center text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-2 rounded">
-                    <CheckCircle size={16} className="mr-2" />
-                    {file.name}
-                  </div>
-                )}
+
+              <div className="border-2 border-dashed p-6 rounded-lg text-center bg-gray-50 dark:bg-gray-700/50">
+                <Upload className="mx-auto h-10 w-10 text-gray-400" />
+                <label className="cursor-pointer text-primary-600 font-medium">
+                  <span>Upload Certificates / Resume</span>
+                  <input
+                    type="file"
+                    className="sr-only"
+                    onChange={handleFileChange}
+                  />
+                </label>
+                <p className="text-xs text-gray-500 mt-1">
+                  PDF, JPG up to 10MB
+                </p>
               </div>
+
+              {file && (
+                <div className="flex items-center text-green-600 mt-2">
+                  <CheckCircle size={16} className="mr-2" />
+                  {file.name}
+                </div>
+              )}
             </div>
 
-            <div className="flex justify-end pt-4">
+            {/* Submit */}
+            <div className="flex justify-end">
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full sm:w-auto flex justify-center py-3 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 transition-colors"
+                className="px-6 py-3 rounded-md text-white bg-primary-600 hover:bg-primary-700 disabled:opacity-50"
               >
                 {submitting ? "Submitting..." : "Submit Application"}
               </button>

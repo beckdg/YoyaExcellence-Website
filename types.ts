@@ -18,17 +18,18 @@ export interface Tutor {
   bio: string;
   experience: string;
   isVerified: boolean;
-  educationalCatagory: EducationalCatagory[];
+  educationalCategory: EducationalCetagory[];
 }
 
 export interface TutorApplication {
   id: string;
   userId: string;
   fullName: string;
-  age: number;
+  dateOfBirth: string;
   phone: string;
   location: string;
-  subjects: string; // comma separated for form simplicity
+  subjects: string;
+  educationalCategory: EducationalCetagory[];
   experience: string;
   bio: string;
   monthlyRate: number;
@@ -44,7 +45,7 @@ export interface FilterState {
   location: string;
 }
 
-export type EducationalCatagory =
+export type EducationalCetagory =
   | "KG"
   | "Grade 1-4"
   | "Grade 5-8"
