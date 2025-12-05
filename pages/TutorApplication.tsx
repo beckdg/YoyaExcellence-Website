@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Upload, CheckCircle } from "lucide-react";
+import { Upload, CheckCircle, Send } from "lucide-react";
 import { mockService } from "../services/mockService";
 import { useNavigate } from "react-router-dom";
 
@@ -97,7 +97,7 @@ const TutorApplication: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-primary-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
@@ -108,7 +108,7 @@ const TutorApplication: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Full Name */}
@@ -123,7 +123,7 @@ const TutorApplication: React.FC = () => {
                   placeholder="As it appears on your Legal Doc."
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                  className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
               </div>
 
@@ -138,20 +138,21 @@ const TutorApplication: React.FC = () => {
                   required
                   value={formData.dateOfBirth}
                   onChange={handleChange}
-                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                  className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
               </div>
 
               {/* Phone Number + Code */}
               <div className="col-span-2 md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Phone Number
                 </label>
 
                 <div className="flex mt-1">
-                  <span className="px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-l-md border">
+                  <span className="flex items-center gap-1 px-4 py-3 rounded-l-xl border border-gray-300 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white">
                     +251
                   </span>
+
                   <input
                     type="tel"
                     name="phone"
@@ -159,7 +160,7 @@ const TutorApplication: React.FC = () => {
                     placeholder="9XXXXXXXX"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="block w-full p-3 rounded-r-md border dark:bg-gray-700 dark:text-white"
+                    className="w-full p-3 rounded-r-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                   />
                 </div>
               </div>
@@ -176,7 +177,7 @@ const TutorApplication: React.FC = () => {
                   required
                   value={formData.location}
                   onChange={handleChange}
-                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                  className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
               </div>
 
@@ -191,7 +192,7 @@ const TutorApplication: React.FC = () => {
                   required
                   value={formData.monthlyRate}
                   onChange={handleChange}
-                  className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                  className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
               </div>
             </div>
@@ -237,7 +238,7 @@ const TutorApplication: React.FC = () => {
                 placeholder="e.g. Math, Physics..."
                 value={formData.subjects}
                 onChange={handleChange}
-                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
               />
             </div>
 
@@ -252,7 +253,7 @@ const TutorApplication: React.FC = () => {
                 required
                 value={formData.experience}
                 onChange={handleChange}
-                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                className="block w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
               />
             </div>
 
@@ -267,7 +268,7 @@ const TutorApplication: React.FC = () => {
                 required
                 value={formData.bio}
                 onChange={handleChange}
-                className="mt-1 block w-full p-3 rounded-md border dark:bg-gray-700 dark:text-white"
+                className="w-full p-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
               />
             </div>
 
@@ -305,9 +306,16 @@ const TutorApplication: React.FC = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-6 py-3 rounded-md text-white bg-primary-600 hover:bg-primary-700 disabled:opacity-50"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                {submitting ? "Submitting..." : "Submit Application"}
+                {submitting ? (
+                  "Submitting..."
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Submit Application
+                  </>
+                )}
               </button>
             </div>
           </form>
