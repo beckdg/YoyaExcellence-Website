@@ -12,7 +12,6 @@ const Navbar: React.FC = () => {
     { name: "Home", path: "/" },
     { name: "Browse Tutors", path: "/tutors" },
     { name: "Apply to Teach", path: "/apply" },
-    { name: "Admin", path: "/admin" }, // Visible for demo
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -66,6 +65,12 @@ const Navbar: React.FC = () => {
               >
                 Login
               </Link>
+              <Link
+                to="/Signup"
+                className="text-sm font-medium border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white transition"
+              >
+                Sign Up
+              </Link>
             </div>
           </div>
 
@@ -114,6 +119,7 @@ const Navbar: React.FC = () => {
                   </>
                 )}
               </button>
+
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
